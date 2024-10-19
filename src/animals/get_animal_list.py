@@ -1,7 +1,7 @@
 import time
 import asyncio
 import aiohttp
-from src.utils.async_requests import async_get
+from src.utils.async_requests import async_request, HttpMethod
 from src.animals.endpoints import get_origin_url
 from src.animals.animal import AnimalBasicInfo, AnimalPage
 from typing import List
@@ -13,7 +13,7 @@ def parse_pages(pages: List[AnimalPage]) -> List[AnimalBasicInfo]:
 
 async def fetch_page(session, url, page_number) -> AnimalPage:
     params = {"page": page_number}
-    response = await async_get(session, url, params)
+    response = await async_request(HttpMethod.GET, session, url, params)
     return AnimalPage(**(response if response else {}))
 
 
