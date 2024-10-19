@@ -51,8 +51,8 @@ For the first version I leveraged `asyncio` to not be blocked by response times.
 
 Executions times:
 ```
-Listing animals: 12.60s
-Getting details: 18.36s
-Sending home: 0.20s
-Total Time: 31.16
+Listing animals: 9.65s
+Getting details: 18.66s
+Sending home: 0.21s
+Total Time: 28.52
 ```

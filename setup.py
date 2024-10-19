@@ -17,10 +17,10 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'print_basic_info=src.animals.get_animal_list:main',
-            'print_animal_details=src.animals.get_animal_details:main',
-            'send_animals=src.animals.send_animals:main',
-            'send_them_home=src.animals.send_all_animals_home:main'
+            'print_basic_info=src.scripts.print_animals_basic_information:run',
+            'print_animal_details=src.scripts.print_animal_details:run',
+            'send_animals=src.scripts.send_mocked_animals:run',
+            'send_them_home=src.scripts.send_all_animals_home:run'
         ],
     },
 )

@@ -1,4 +1,3 @@
-import time
 import asyncio
 import aiohttp
 from src.utils.async_requests import async_request, HttpMethod
@@ -26,19 +25,3 @@ async def get_animal_list(session: aiohttp.ClientSession) -> List[AnimalBasicInf
     tasks = [fetch_page(session, url, page) for page in range(1, total_pages + 1)]
     pages = await asyncio.gather(*tasks)
     return parse_pages(pages)
-
-
-async def print_animal_basic_information():
-    async with aiohttp.ClientSession() as session:
-        time_ref = time.time()
-        animals = await get_animal_list(session)
-        time_end = time.time()
-
-    for a in animals:
-        print(f'{a.id}: {a.name}' + (f' - born at {a.born_at}' if a.born_at else ''))
-
-    print(f'It took {time_end - time_ref} s to retrieve all {len(animals)} animals')
-
-
-def main():
-    asyncio.run(print_animal_basic_information())

@@ -25,8 +25,6 @@ async def send_all_animals_home():
         animals = await get_animal_list(session)
         execution_latencies['list_animals'] = time.time() - ref
 
-        with open('file.txt', 'w') as f:
-            f.write(JSON.dumps([animal.id for animal in animals]))
         get_details_tasks = [
             get_animal_details(animal.id, session) for animal in animals
         ]
@@ -50,5 +48,5 @@ async def send_all_animals_home():
     print(EXECUTION_MESSAGE.format(**execution_latencies))
 
 
-def main():
+def run():
     asyncio.run(send_all_animals_home())
