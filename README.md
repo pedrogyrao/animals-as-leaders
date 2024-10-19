@@ -25,3 +25,34 @@ Problems:
 So we will have to retry on those
 
 * System shows random latency time to time (sleeps of 5 to 15 seconds). So our system will have to either timeout and try again, or make sure it waits.
+
+## Scripts
+
+To run the scripts, first install the package by running
+
+```bash
+pip install -e .
+```
+
+then use:
+
+* `print_basic_info` - lists all animals basic information by getting all pages from `/animals/v1/animals?page=<number>` and printing animal information.
+* `print_animal_details --animal_id <id>` - gets the detail of the animal id provided from `/animals/v1/animals/<animal-id>`
+* `send_animals` - sends some mocked animals home by posting them on `/animals/v1/home`
+* `send_them_home` - V1 version of the main script
+
+## Send them home V1
+
+For the first version I leveraged `asyncio` to not be blocked by response times. But it is still a very simple/straight forward solution.
+1. lists all animals by going through all pages
+1. get all animal details
+1. organize data in batches of 100 animal details
+1. send batches home
+
+Executions times:
+```
+Listing animals: 12.60s
+Getting details: 18.36s
+Sending home: 0.20s
+Total Time: 31.16
+```
