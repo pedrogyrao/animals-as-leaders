@@ -1,14 +1,13 @@
-def get_animal_list():
+from src.animals.animal import AnimalBasicInfo
+
+
+def get_animal_list() -> list[AnimalBasicInfo]:
     return [
-        {'id': 4991, 'name': 'Turtle', 'born_at': None},
-        {'id': 4995, 'name': 'Pony', 'born_at': 877863638315},
+        AnimalBasicInfo(4991, 'Turtle', None),
+        AnimalBasicInfo(4995, 'Pony', 877863638315),
     ]
 
 
 def print_animal_basic_information():
-    for animal in get_animal_list():
-        animal_id = animal['id']
-        name = animal['name']
-        born_at = animal['born_at']
-
-        print(f'{animal_id}: {name}' + f' - born at {born_at}' if born_at else '')
+    for a in get_animal_list():
+        print(f'{a.id}: {a.name}' + (f' - born at {a.born_at}' if a.born_at else ''))
