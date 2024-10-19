@@ -6,4 +6,4 @@ ORIGIN_ENDPOINTS = {
 
 
 def get_origin_url(endpoint_name: str, **params) -> str:
-    return f'{ORIGIN_BASE_URL}{ORIGIN_ENDPOINTS[endpoint_name]}'.format(params)
+    return ORIGIN_BASE_URL + ORIGIN_ENDPOINTS[endpoint_name].format(**params)

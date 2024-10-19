@@ -4,15 +4,15 @@ from aiohttp import ClientSession
 
 RETRY_STATUS_CODE = {500, 502, 503, 504}
 MAX_RETRIES = 3
-STATUS_IGNORED_MESSAGE = 'Ignoring status {status} for params {params} url {url}'
-ERROR_IGNORED_MESSAGE = 'Ignoring exception {error} for params {params} url {url}}'
-MAX_ATTEMPTS_MESSAGE = 'Attempted {number} requests, ignoring params {params} url {url}'
+STATUS_IGNORED_MESSAGE = 'Ignoring status {} for params {} url {}'
+ERROR_IGNORED_MESSAGE = 'Ignoring exception {} for params {} url {}}'
+MAX_ATTEMPTS_MESSAGE = 'Attempted {} requests, ignoring params {} url {}'
 
 
 async def async_get(
     session: ClientSession,
     url: str,
-    params: Dict[str, Any],
+    params: Dict[str, Any] = {},
     retry_on_status: Tuple[int] = RETRY_STATUS_CODE,
     max_retries: int = MAX_RETRIES
 ) -> Any:
@@ -31,6 +31,6 @@ async def async_get(
             print(MAX_ATTEMPTS_MESSAGE.format(max_retries, params, url))
             return None
 
-    except Exception as e:
-        print(ERROR_IGNORED_MESSAGE.format(e, params, url))
+    except Exception as error:
+        print(ERROR_IGNORED_MESSAGE.format(error, params, url))
         return None
