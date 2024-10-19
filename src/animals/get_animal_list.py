@@ -8,7 +8,7 @@ from typing import List
 
 
 def parse_pages(pages: List[AnimalPage]) -> List[AnimalBasicInfo]:
-    return [AnimalBasicInfo(animal) for page in pages for animal in page.items]
+    return [AnimalBasicInfo(**animal) for page in pages for animal in page.items]
 
 
 async def fetch_page(session, url, page_number) -> AnimalPage:
@@ -17,25 +17,22 @@ async def fetch_page(session, url, page_number) -> AnimalPage:
     return AnimalPage(**(response if response else {}))
 
 
-async def get_animal_list() -> List[AnimalBasicInfo]:
+async def get_animal_list(session: aiohttp.ClientSession) -> List[AnimalBasicInfo]:
     url = get_origin_url('list_animals')
+    page_0 = await fetch_page(session, url, 0)
+    total_pages = page_0.total_pages
 
-    async with aiohttp.ClientSession() as session:
-        page_0 = await fetch_page(session, url, 0)
-        total_pages = page_0.total_pages
-
-        print(f'Retrieving {total_pages} pages')
-
-        tasks = [fetch_page(session, url, page) for page in range(1, total_pages + 1)]
-        pages = await asyncio.gather(*tasks)
-
+    print(f'Retrieving {total_pages} pages')
+    tasks = [fetch_page(session, url, page) for page in range(1, total_pages + 1)]
+    pages = await asyncio.gather(*tasks)
     return parse_pages(pages)
 
 
 async def print_animal_basic_information():
-    time_ref = time.time()
-    animals = await get_animal_list()
-    time_end = time.time()
+    async with aiohttp.ClientSession() as session:
+        time_ref = time.time()
+        animals = await get_animal_list(session)
+        time_end = time.time()
 
     for a in animals:
         print(f'{a.id}: {a.name}' + (f' - born at {a.born_at}' if a.born_at else ''))

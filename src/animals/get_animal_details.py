@@ -7,15 +7,18 @@ from src.utils.async_requests import async_request, HttpMethod
 from src.animals.endpoints import get_origin_url
 
 
-async def get_animal_details(animal_id: str) -> Union[AnimalDetails, None]:
+async def get_animal_details(
+    animal_id: str,
+    session: aiohttp.ClientSession
+) -> Union[AnimalDetails, None]:
     url = get_origin_url('animal_details', animal_id=animal_id)
-    async with aiohttp.ClientSession() as session:
-        data = await async_request(HttpMethod.GET, session, url)
-        return AnimalDetails(**data) if data else None
+    data = await async_request(HttpMethod.GET, session, url)
+    return AnimalDetails(**data) if data else None
 
 
 async def print_animal_details(animal_id):
-    animal_details = await get_animal_details(animal_id)
+    async with aiohttp.ClientSession() as session:
+        animal_details = await get_animal_details(animal_id, session)
     print(animal_details)
 
 

@@ -20,6 +20,7 @@ setup(
             'print_basic_info=src.animals.get_animal_list:main',
             'print_animal_details=src.animals.get_animal_details:main',
             'send_animals=src.animals.send_animals:main',
+            'send_them_home=src.animals.send_all_animals_home:main'
         ],
     },
 )
