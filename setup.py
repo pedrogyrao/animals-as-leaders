@@ -6,6 +6,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
+        "aiohttp",
     ],
     extras_require={
         "dev": [
@@ -15,7 +16,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'print_basic_info=src.animals.get_animal_list:print_animal_basic_information',
+            'print_basic_info=src.animals.get_animal_list:main',
         ],
     },
 )
