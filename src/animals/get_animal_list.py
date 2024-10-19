@@ -1,6 +1,7 @@
 import time
 import asyncio
 import aiohttp
+from src.utils.async_requests import async_get
 from src.animals.endpoints import get_origin_url
 from src.animals.animal import AnimalBasicInfo, AnimalPage
 from typing import List
@@ -11,20 +12,9 @@ def parse_pages(pages: List[AnimalPage]) -> List[AnimalBasicInfo]:
 
 
 async def fetch_page(session, url, page_number) -> AnimalPage:
-    try:
-        params = {"page": page_number}
-        async with session.get(url, params=params) as response:
-            if response.ok:
-                page_data = await response.json()
-            else:
-                print(
-                    f'Ignoring status {response.status} for page number {page_number}.'
-                )
-                page_data = {}
-    except Exception as e:
-        print(f'Ignoring exception {str(e)} for page number {page_number}.')
-        page_data = {}
-    return AnimalPage(**page_data)
+    params = {"page": page_number}
+    response = await async_get(session, url, params)
+    return AnimalPage(**(response if response else {}))
 
 
 async def get_animal_list() -> List[AnimalBasicInfo]:
@@ -33,6 +23,8 @@ async def get_animal_list() -> List[AnimalBasicInfo]:
     async with aiohttp.ClientSession() as session:
         page_0 = await fetch_page(session, url, 0)
         total_pages = page_0.total_pages
+
+        print(f'Retrieving {total_pages} pages')
 
         tasks = [fetch_page(session, url, page) for page in range(1, total_pages + 1)]
         pages = await asyncio.gather(*tasks)
