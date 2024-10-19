@@ -2,8 +2,7 @@ from dataclasses import dataclass, field
 from typing import Optional, List
 from datetime import datetime, timezone
 
-
-SEC_TO_MILLIS = 1000
+SEC_TO_MILLS = 1000
 
 
 @dataclass
@@ -31,9 +30,9 @@ class AnimalDetails(AnimalRawInfo):
     def __post_init__(self):
         if self.born_at:
             dt_object = datetime.fromtimestamp(
-                self.born_at / SEC_TO_MILLIS, tz=timezone.utc
+                self.born_at / SEC_TO_MILLS, tz=timezone.utc
             )
-            self.born_at = dt_object.isoformat().replace('+00:00', 'Z')
+            self.born_at = f'{dt_object.isoformat()[:-9]}Z'
 
         if self.friends:
             self.friends = [
