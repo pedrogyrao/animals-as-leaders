@@ -19,6 +19,7 @@ setup(
         'console_scripts': [
             'print_basic_info=src.animals.get_animal_list:main',
             'print_animal_details=src.animals.get_animal_details:main',
+            'send_animals=src.animals.send_animals:main',
         ],
     },
 )

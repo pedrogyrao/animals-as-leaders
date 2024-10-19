@@ -28,13 +28,13 @@ class AnimalRawInfo(AnimalBasicInfo):
 class AnimalDetails(AnimalRawInfo):
 
     def __post_init__(self):
-        if self.born_at:
+        if self.born_at and isinstance(self.born_at, int):
             dt_object = datetime.fromtimestamp(
                 self.born_at / SEC_TO_MILLS, tz=timezone.utc
             )
             self.born_at = f'{dt_object.isoformat()[:-9]}Z'
 
-        if self.friends:
+        if isinstance(self.friends, str):
             self.friends = [
                 friend.strip() for friend in self.friends.split(',')
             ]
