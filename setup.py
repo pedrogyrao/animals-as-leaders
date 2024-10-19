@@ -20,7 +20,8 @@ setup(
             'print_basic_info=src.scripts.print_animals_basic_information:run',
             'print_animal_details=src.scripts.print_animal_details:run',
             'send_animals=src.scripts.send_mocked_animals:run',
-            'send_them_home=src.scripts.send_all_animals_home:run'
+            'send_them_home=src.scripts.send_all_animals_home:run',
+            'send_them_home_v2=src.scripts.send_all_animals_home_v2:run',
         ],
     },
 )

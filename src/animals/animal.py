@@ -18,6 +18,10 @@ class AnimalPage:
     total_pages: int = 0
     items: List[AnimalBasicInfo] = field(default_factory=list)
 
+    def __post_init__(self):
+        if self.items:
+            self.items = [AnimalBasicInfo(**item) for item in self.items]
+
 
 @dataclass
 class AnimalRawInfo(AnimalBasicInfo):
