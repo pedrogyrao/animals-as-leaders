@@ -75,3 +75,14 @@ Getting details: 17.76s
 Sending home: 0.20s
 Total Time: 17.98
 ```
+
+## Tests
+
+To run tests run:
+
+```bash
+pip install -e [dev]
+pytest
+```
+
+I only added tests around `async_request` function. But ideally I would like to add tests to everything.

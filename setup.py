@@ -13,8 +13,10 @@ setup(
         "dev": [
             "flake8",
             "pytest",
+            "pytest-asyncio",
         ],
     },
+    test_suite="tests",
     entry_points={
         'console_scripts': [
             'print_basic_info=src.scripts.print_animals_basic_information:run',

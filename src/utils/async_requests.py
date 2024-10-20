@@ -6,7 +6,7 @@ from aiohttp import ClientSession
 RETRY_STATUS_CODE = {500, 502, 503, 504}
 MAX_RETRIES = 3
 STATUS_IGNORED_MESSAGE = 'Ignoring status {} for params {} url {}'
-ERROR_IGNORED_MESSAGE = 'Ignoring exception {} for params {} url {}}'
+ERROR_IGNORED_MESSAGE = 'Ignoring exception {} for params {} url {}'
 MAX_ATTEMPTS_MESSAGE = 'Attempted {} requests, ignoring params {} url {}'
 INVALID_METHOD_MESSAGE = 'Invalid method {}, ignoring params {} url {}'
 
