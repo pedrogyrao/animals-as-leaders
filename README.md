@@ -85,4 +85,8 @@ pip install -e [dev]
 pytest
 ```
 
-I only added tests around `async_request` function. But ideally I would like to add tests to everything.
+I only added tests around:
+
+* `async_request` function - to cover all the status I'm ignoring and the errors I'm swallowing
+* `AnimalPage` data class - to cover for the items conversion
+* `AnimalDetails` data class - to cover for friends parsing and timestamp formatting
